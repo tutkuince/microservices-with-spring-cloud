@@ -1,0 +1,59 @@
+package com.incetutku.restapidevelopmentbasics.service.impl;
+
+import com.incetutku.restapidevelopmentbasics.dto.UserDTO;
+import com.incetutku.restapidevelopmentbasics.entity.User;
+import com.incetutku.restapidevelopmentbasics.mapper.UserMapper;
+import com.incetutku.restapidevelopmentbasics.repository.UserRepository;
+import com.incetutku.restapidevelopmentbasics.service.UserService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public UserDTO createUser(UserDTO userDTO) {
+        User user = UserMapper.USER_MAPPER.mapToUser(userDTO);
+        User savedUser = userRepository.save(user);
+        return UserMapper.USER_MAPPER.mapToUserDTO(savedUser);
+    }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.map(UserMapper.USER_MAPPER::mapToUserDTO).orElse(null);
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream().map(UserMapper.USER_MAPPER::mapToUserDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDTO updateUser(UserDTO userDTO) {
+        Optional<User> user = userRepository.findById(userDTO.getId());
+        if (user.isPresent()) {
+            User existingUser = user.get();
+            existingUser.setName(userDTO.getName());
+            existingUser.setSurname(userDTO.getSurname());
+            existingUser.setEmail(userDTO.getEmailAddress());
+            User updatedUser = userRepository.save(existingUser);
+            return UserMapper.USER_MAPPER.mapToUserDTO(updatedUser);
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+}
