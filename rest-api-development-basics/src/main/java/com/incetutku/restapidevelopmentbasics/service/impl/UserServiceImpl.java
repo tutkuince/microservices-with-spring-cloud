@@ -2,6 +2,7 @@ package com.incetutku.restapidevelopmentbasics.service.impl;
 
 import com.incetutku.restapidevelopmentbasics.dto.UserDTO;
 import com.incetutku.restapidevelopmentbasics.entity.User;
+import com.incetutku.restapidevelopmentbasics.exception.ResourceNotFoundException;
 import com.incetutku.restapidevelopmentbasics.mapper.UserMapper;
 import com.incetutku.restapidevelopmentbasics.repository.UserRepository;
 import com.incetutku.restapidevelopmentbasics.service.UserService;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUserById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.map(UserMapper.USER_MAPPER::mapToUserDTO).orElse(null);
+        return optionalUser.map(UserMapper.USER_MAPPER::mapToUserDTO).orElseThrow(() -> new ResourceNotFoundException("User", "Id", id));
     }
 
     @Override
