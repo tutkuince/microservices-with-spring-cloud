@@ -2,6 +2,7 @@ package com.incetutku.restapidevelopmentbasics.service.impl;
 
 import com.incetutku.restapidevelopmentbasics.dto.UserDTO;
 import com.incetutku.restapidevelopmentbasics.entity.User;
+import com.incetutku.restapidevelopmentbasics.exception.EmailAlreadyExistException;
 import com.incetutku.restapidevelopmentbasics.exception.ResourceNotFoundException;
 import com.incetutku.restapidevelopmentbasics.mapper.UserMapper;
 import com.incetutku.restapidevelopmentbasics.repository.UserRepository;
@@ -23,6 +24,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
+        Optional<User> optionalUser = userRepository.findByEmail(userDTO.getEmailAddress());
+        if (optionalUser.isPresent()) {
+            throw new EmailAlreadyExistException("Email Already Exists for User");
+        }
         User user = UserMapper.USER_MAPPER.mapToUser(userDTO);
         User savedUser = userRepository.save(user);
         return UserMapper.USER_MAPPER.mapToUserDTO(savedUser);
