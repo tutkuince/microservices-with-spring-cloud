@@ -41,16 +41,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
-        Optional<User> user = userRepository.findById(userDTO.getId());
-        if (user.isPresent()) {
-            User existingUser = user.get();
-            existingUser.setName(userDTO.getName());
-            existingUser.setSurname(userDTO.getSurname());
-            existingUser.setEmail(userDTO.getEmailAddress());
-            User updatedUser = userRepository.save(existingUser);
-            return UserMapper.USER_MAPPER.mapToUserDTO(updatedUser);
-        }
-        return null;
+        User existingUser = userRepository.findById(userDTO.getId()).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userDTO.getId()));
+        existingUser.setName(userDTO.getName());
+        existingUser.setSurname(userDTO.getSurname());
+        existingUser.setEmail(userDTO.getEmailAddress());
+        User updatedUser = userRepository.save(existingUser);
+        return UserMapper.USER_MAPPER.mapToUserDTO(updatedUser);
+
     }
 
     @Override
