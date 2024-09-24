@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserDTO> updateUserById(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUserById(@RequestBody @Valid  UserDTO userDTO) {
         return ResponseEntity.ok(userService.updateUser(userDTO));
     }
 
