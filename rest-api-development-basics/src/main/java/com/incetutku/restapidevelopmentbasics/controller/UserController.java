@@ -4,6 +4,7 @@ import com.incetutku.restapidevelopmentbasics.dto.UserDTO;
 import com.incetutku.restapidevelopmentbasics.exception.ErrorDetails;
 import com.incetutku.restapidevelopmentbasics.exception.ResourceNotFoundException;
 import com.incetutku.restapidevelopmentbasics.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) {
         return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
     }
 
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserDTO> updateUserById(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUserById(@RequestBody @Valid UserDTO userDTO) {
         return ResponseEntity.ok(userService.updateUser(userDTO));
     }
 
