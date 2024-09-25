@@ -1,17 +1,13 @@
 package com.incetutku.restapidevelopmentbasics.controller;
 
 import com.incetutku.restapidevelopmentbasics.dto.UserDTO;
-import com.incetutku.restapidevelopmentbasics.exception.ErrorDetails;
-import com.incetutku.restapidevelopmentbasics.exception.ResourceNotFoundException;
 import com.incetutku.restapidevelopmentbasics.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.View;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
