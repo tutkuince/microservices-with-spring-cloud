@@ -1,0 +1,22 @@
+### Monolith vs Microservices
+- Architecture Overview
+  - Monolith: Single, unified application with all components tightly integrated
+  - Microservices: Architecture comprises small, independent services communicating over a network
+- Scalability
+  - Monolith: Scaling requires replicating the entire application, which can be inefficient
+  - Microservices: Each service can be scaled independently, allowing for more granular resource allocation
+- Development and Deployment
+  - Monolith: Signle codebase, simpler deployment process
+  - Microservices: Multiple codebases, more complex deployment, and orchestration, but enables faster development cycles and flexibility.
+- Fault Isolation and Resilience
+  - Monolith: One component failure can bring down the entire system.
+  - Microservices: Faults are isolated, allowing the rest of the system to continue functioning.
+- Technology Stack:
+  - Monolith: Typically uses a single technology stack throughout the application
+  - Microservices: Each service can use its own technology stack, allowing teams to choose the best tools for the job.
+- Communication and Integration
+  - Monolith: Components communicate through function calls, often tightly coupled.
+  - Microservices: Services communicate over a network, usually through APIs, promoting loose coupling.
+- Complexity and Maintenance
+  - Monolith: Simple to start with, but can become complex and difficult to maintain as it grows.
+  - Microservices: More complex to set up initially, but easier to maintain and update over time.
